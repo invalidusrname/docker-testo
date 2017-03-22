@@ -25,4 +25,7 @@ jobs:
           command: docker run -it ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:$CIRCLE_BRANCH date
       - run:
           name: Push Docker Image
-          command: docker push ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BRANCH}
+          command: |
+            set -x
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BRANCH}
